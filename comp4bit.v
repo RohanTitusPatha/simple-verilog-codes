@@ -19,3 +19,24 @@ assign LT = lt[3] | (eq[3] & lt[2]) | (eq[3] & eq[2] & lt[1]) |
 assign EQ = eq[3] & eq[2] & eq[1] & eq[0];
 
 endmodule
+
+integer i;
+
+always @(*) begin
+    GT = 0;
+    LT = 0;
+    EQ = 1;
+
+    for (i = N-1; i >= 0; i = i - 1) begin
+        if (A[i] > B[i]) begin
+            GT = 1;
+            EQ = 0;
+            LT = 0;
+        end
+        else if (A[i] < B[i]) begin
+            LT = 1;
+            EQ = 0;
+            GT = 0;
+        end
+    end
+end
